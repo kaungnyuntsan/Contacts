@@ -1,0 +1,72 @@
+// goal [{key : 1, name : 'alice op', phone : '123-123-123'}, ...]
+
+const numContacts = 10;
+
+const firstNames = [
+  "Yaritza",
+  "Emanuel",
+  "Maria",
+  "Bryant",
+  "Van",
+  "Charles",
+  "Jordon",
+  "Kyle",
+  "Leo",
+  "Jensen",
+  "Joel",
+  "Tianna",
+  "Keagan",
+  "Shiloh",
+  "Jaquan",
+  "Adeline",
+  "Dayami",
+  "Mikayla",
+  "Edith",
+  "Dean",
+  "Dillan",
+  "Carina",
+  "Aria",
+  "Isabell",
+  "Tiana",
+  "Alison",
+  "Bailey",
+  "Reagan",
+  "Makayla",
+  "Quinton",
+  "Irene",
+  "Anastasia",
+  "Hayley",
+  "Maribel",
+  "Mina",
+  "Keegan",
+  "Cynthia",
+  "Davon",
+  "Donna",
+  "Natalya",
+];
+
+const lastNames = [
+  "Adeline",
+  "Dayami",
+  "Mikayla",
+  "Edith",
+  "Dean",
+  "Dillan",
+  "Carina",
+  "Aria",
+  "Isabell",
+  "Tiana",
+  "Alison",
+  "Bailey",
+  "Reagan",
+  "Makayla",
+  "Quinton",
+  "Irene",
+  "Anastasia",
+  "Hayley",
+  "Maribel",
+];
+
+// const nameGenerator = ()
+
+// console.log("hello");
