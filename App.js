@@ -14,17 +14,21 @@ import { ContactsList } from "./ContactsList";
 
 export default function App() {
   const [contactsView, setContactsView] = useState(true);
+  const [contacts, setContacts] = useState(randomContacts);
+
+  const renderItem = ({ item }) => <ContactsList {...item} />;
 
   return (
     <SafeAreaView style={styles.container}>
       <Button title="toggle" onPress={() => setContactsView(!contactsView)} />
+      <Button title="sort" onPress={() => {}} />
       {contactsView && (
         <FlatList
-          data={randomContacts}
+          data={contacts}
           // renderItem={({ item }) => (
           //   <ContactsList key={item.key} name={item.name} phone={item.phone} />
           // )}
-          renderItem={({ item }) => <ContactsList {...item} />}
+          renderItem={renderItem}
         />
       )}
     </SafeAreaView>
