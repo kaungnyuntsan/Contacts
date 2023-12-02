@@ -1,7 +1,7 @@
 // goal   [ { key: 1, name: 'Emanuel Sexton', phone: '708-833-506' },
-  // { key: 2, name: 'Joel Frank', phone: '433-352-239' }, ]
+// { key: 2, name: 'Joel Frank', phone: '433-352-239' }, ]
 
-const numContacts = 20;
+const numContacts = 1500;
 
 const firstNames = [
   "Yaritza",
@@ -106,40 +106,42 @@ const lastNames = [
   "Frank",
   "Livingston",
   "Yates",
- 
 ];
 
-const getRandomInt = ( max, min = 0) => Math.floor(Math.random() * (max - min + 1) + min)
-
+const getRandomInt = (max, min = 0) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
 
 const getRandomName = () => {
-  const firstNamesRange = firstNames.length - 1
-  const lastNamesRange = lastNames.length - 1
-  const randomFirstName = firstNames[getRandomInt(firstNamesRange)]
-  const randomLastName = lastNames[getRandomInt(lastNamesRange)]
-  return `${randomFirstName} ${randomLastName}`
-}
+  const firstNamesRange = firstNames.length - 1;
+  const lastNamesRange = lastNames.length - 1;
+  const randomFirstName = firstNames[getRandomInt(firstNamesRange)];
+  const randomLastName = lastNames[getRandomInt(lastNamesRange)];
+  return `${randomFirstName} ${randomLastName}`;
+};
 
-const getRandomPhone = () => { 
-  const randInt1 = getRandomInt(999,100)
-  const randInt2 = getRandomInt(999,100)
-  const randInt3 = getRandomInt(999,100)
-  return `${randInt1}-${randInt2}-${randInt3}`
+const getRandomPhone = () => {
+  const randInt1 = getRandomInt(999, 100);
+  const randInt2 = getRandomInt(999, 100);
+  const randInt3 = getRandomInt(999, 100);
+  return `${randInt1}-${randInt2}-${randInt3}`;
+};
 
-  
-}
+const getRandomContact = () => ({
+  name: getRandomName(),
+  phone: getRandomPhone(),
+});
 
-
-const getRandomContact = () => ({ name : getRandomName(), phone : getRandomPhone()})
-
-const addKey = (contact,key) => ({ key, ...contact})
+const addKey = (contact, key) => ({ key, ...contact });
 
 // console.log(getRandomInt())
 // console.log(getRandomName());
 // console.log(getRandomPhone());
 // console.log(getRandomContact());
 
-const randomContacts = () => Array.from({length : numContacts}, getRandomContact).map(addKey)
+// const randomContacts = () =>
+export default Array.from({ length: numContacts }, getRandomContact).map(
+  addKey
+);
 
-export {randomContacts};
+// export { randomContacts };
 // console.log( randomContacts());
