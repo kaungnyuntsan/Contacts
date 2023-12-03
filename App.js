@@ -9,7 +9,7 @@ import {
   Button,
   FlatList,
 } from "react-native";
-import randomContacts from "./randomContacts";
+import randomContacts, {objSortByName} from "./randomContacts";
 import { ContactsList } from "./ContactsList";
 
 export default function App() {
@@ -21,7 +21,9 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Button title="toggle" onPress={() => setContactsView(!contactsView)} />
-      <Button title="sort" onPress={() => {}} />
+      <Button title="sort" onPress={() => {
+        setContacts([...contacts].sort(objSortByName))
+      }} />
       {contactsView && (
         <FlatList
           data={contacts}
@@ -34,9 +36,7 @@ export default function App() {
     </SafeAreaView>
   );
 
-  {
-    /* <Button title="console" onPress={() => console.log(contactsView)} /> */
-  }
+
 }
 
 const styles = StyleSheet.create({

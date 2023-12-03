@@ -1,7 +1,7 @@
 // goal   [ { key: 1, name: 'Emanuel Sexton', phone: '708-833-506' },
 // { key: 2, name: 'Joel Frank', phone: '433-352-239' }, ]
 
-const numContacts = 1500;
+const numContacts = 10;
 
 const firstNames = [
   "Yaritza",
@@ -137,6 +137,21 @@ const addKey = (contact, key) => ({ key, ...contact });
 // console.log(getRandomName());
 // console.log(getRandomPhone());
 // console.log(getRandomContact());
+
+export const objSortByName = (a, b) => {
+  const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // names must be equal
+  return 0;
+}
+
 
 // const randomContacts = () =>
 export default Array.from({ length: numContacts }, getRandomContact).map(
