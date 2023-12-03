@@ -8,15 +8,16 @@ import {
   SafeAreaView,
   Button,
   FlatList,
+  SectionList
 } from "react-native";
 import randomContacts, {objSortByName} from "./randomContacts";
-import { ContactsList } from "./ContactsList";
+import { ContactRow } from "./ContactRow";
 
 export default function App() {
   const [contactsView, setContactsView] = useState(true);
   const [contacts, setContacts] = useState(randomContacts);
 
-  const renderItem = ({ item }) => <ContactsList {...item} />;
+  const renderItem = ({ item }) => <ContactRow {...item} />;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,10 +26,24 @@ export default function App() {
         setContacts([...contacts].sort(objSortByName))
       }} />
       {contactsView && (
-        <FlatList
-          data={contacts}
+        <SectionList
+          // data={contacts}
+          sections={[{
+            title : 'A',
+            data : contacts,
+          }]}
+          renderSectionHeader={
+            // obj => console.log(obj.section.title)
+            obj => {
+              return(
+              <View style={{margin : 3}}>
+            <Text style={{fontSize : 25}}> {obj.section.title}</Text>
+            </View>)
+          }
+          }
+
           // renderItem={({ item }) => (
-          //   <ContactsList key={item.key} name={item.name} phone={item.phone} />
+          //   <ContactRow key={item.key} name={item.name} phone={item.phone} />
           // )}
           renderItem={renderItem}
         />
