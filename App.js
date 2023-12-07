@@ -5,7 +5,6 @@ import {
   Text,
   View,
   ScrollView,
-  SafeAreaView,
   Button,
   FlatList,
   SectionList,
@@ -15,6 +14,7 @@ import randomContacts, { objSortByName } from "./randomContacts";
 import { ContactRow } from "./ContactRow";
 import { ContactsList } from "./ContactsList";
 import { AddContactForm } from "./AddContactForm";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const [contactsView, setContactsView] = useState(true);
@@ -33,49 +33,21 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Button
-        title="Add Contact"
-        onPress={() => setContactsView(!contactsView)}
-      />
-      {/* <Button
-        title="sort"
-        onPress={() => {
-          setContacts([...contacts].sort(objSortByName));
-        }}
-      /> */}
-      {/* <TextInput
-        style={{ borderWidth: 1, margin: 10, padding: 10 }}
-        placeholder="name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={{ borderWidth: 1, margin: 10, padding: 10 }}
-        placeholder="phone"
-        value={phone}
-        keyboardType="numeric"
-        onChangeText={setPhone}
-      />
-      <Button
-        title="add"
-        onPress={() => {
-          setContacts([
-            ...contacts,
-            {
-              key: contacts.length + 1,
-              name,
-              phone,
-            },
-          ]);
-        }}
-      /> */}
-      {contactsView ? (
-        <ContactsList contacts={contacts} />
-      ) : (
-        <AddContactForm addContact={addContact} />
-      )}
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        {contactsView ? (
+          <>
+            <Button
+              title="Add Contact"
+              onPress={() => setContactsView(!contactsView)}
+            />
+            <ContactsList contacts={contacts} />
+          </>
+        ) : (
+          <AddContactForm addContact={addContact} />
+        )}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

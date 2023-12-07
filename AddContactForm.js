@@ -25,6 +25,7 @@ const AddContactForm = ({ addContact }) => {
         onPress={() => {
           addContact(name, phone);
         }}
+        disabled={!(Boolean(name) && Boolean(+phone))}
       />
     </View>
   );

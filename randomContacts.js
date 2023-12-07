@@ -1,7 +1,7 @@
 // goal   [ { key: 1, name: 'Emanuel Sexton', phone: '708-833-506' },
 // { key: 2, name: 'Joel Frank', phone: '433-352-239' }, ]
 
-const numContacts = 3;
+const numContacts = 15;
 
 const firstNames = [
   "Yaritza",
