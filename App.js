@@ -1,17 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Button,
-  FlatList,
-  SectionList,
-  TextInput,
-} from "react-native";
-import randomContacts, { objSortByName } from "./randomContacts";
-import { ContactRow } from "./ContactRow";
+import { StyleSheet, Button } from "react-native";
+import randomContacts from "./randomContacts";
 import { ContactsList } from "./ContactsList";
 import { AddContactForm } from "./AddContactForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -39,7 +28,7 @@ export default function App() {
           <>
             <Button
               title="Add Contact"
-              onPress={() => setContactsView(!contactsView)}
+              onPress={() => setContactsView(false)}
             />
             <ContactsList contacts={contacts} />
           </>
