@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet, Button, View, Text } from "react-native";
 import randomContacts from "./randomContacts";
 import { ContactsList } from "./ContactsList";
 import { AddContactForm } from "./AddContactForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
+function HomeScreen({ navigation }) {
   const [contactsView, setContactsView] = useState(true);
   const [contacts, setContacts] = useState(randomContacts);
 
@@ -22,20 +24,42 @@ export default function App() {
   };
 
   return (
+    <SafeAreaView style={styles.container}>
+      {contactsView ? (
+        <>
+          <Button title="Add Contact" onPress={() => setContactsView(false)} />
+          <ContactsList contacts={contacts} navigation={navigation} />
+        </>
+      ) : (
+        <AddContactForm addContact={addContact} />
+      )}
+    </SafeAreaView>
+  );
+}
+
+function DetailsScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Details Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        {contactsView ? (
-          <>
-            <Button
-              title="Add Contact"
-              onPress={() => setContactsView(false)}
-            />
-            <ContactsList contacts={contacts} />
-          </>
-        ) : (
-          <AddContactForm addContact={addContact} />
-        )}
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

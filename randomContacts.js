@@ -1,7 +1,7 @@
 // goal   [ { key: 1, name: 'Emanuel Sexton', phone: '708-833-506' },
 // { key: 2, name: 'Joel Frank', phone: '433-352-239' }, ]
 
-const numContacts = 15;
+const numContacts = 25;
 
 const firstNames = [
   "Yaritza",
@@ -131,7 +131,7 @@ const getRandomContact = () => ({
   phone: getRandomPhone(),
 });
 
-const addKey = (contact, key) => ({ key, ...contact });
+const addKey = (contact, id) => ({ id, ...contact });
 
 // console.log(getRandomInt())
 // console.log(getRandomName());

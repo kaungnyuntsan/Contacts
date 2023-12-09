@@ -1,13 +1,20 @@
 import { SectionList, View, Text, Button } from "react-native";
 import { ContactRow } from "./ContactRow";
 
-const ContactsList = ({ contacts }) => {
-  const renderItem = ({ item }) => <ContactRow {...item} />;
+const ContactsList = ({ contacts, navigation }) => {
+  const renderItem = ({ item }) => {
+    // console.log(item.key)
+    return <ContactRow {...item} navigation={navigation} />;
+  };
 
   const renderSectionHeader = ({ section }) => {
     return (
       <View style={{ margin: 3 }}>
         <Text style={{ fontSize: 20 }}> {section.title}</Text>
+        {/* <Button
+          title="console contactsByLetter A"
+          onPress={() => console.log(contactsByLetter["A"])}
+        /> */}
       </View>
     );
   };
