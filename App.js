@@ -27,7 +27,7 @@ function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {contactsView ? (
         <>
-          <Button title="Add Contact" onPress={() => setContactsView(false)} />
+          {/* <Button title="Add Contact" onPress={() => setContactsView(false)} /> */}
           <ContactsList contacts={contacts} navigation={navigation} />
         </>
       ) : (
@@ -38,13 +38,15 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ route }) {
-  const {id} = route.params
+  const { id } = route.params;
 
-  // const contactData = contacts.find(contact => contact.id === id)
+  const contactData = randomContacts.find((contact) => contact.id === id);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen {id}</Text>
+      {/* <Text>Details Screen {id}</Text> */}
+      <Text style={{ fontSize: 20 }}>{contactData.name}</Text>
+      <Text style={{ fontSize: 20 }}>{contactData.phone}</Text>
     </View>
   );
 }
@@ -61,8 +63,10 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Details" component={DetailsScreen} 
-            options={({ route }) => ({ title : route.params.name})}
+          <Stack.Screen
+            name="Details"
+            component={DetailsScreen}
+            options={({ route }) => ({ title: route.params.name })}
           />
         </Stack.Navigator>
       </NavigationContainer>
