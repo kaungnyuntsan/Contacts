@@ -1,14 +1,15 @@
 import { Text, StyleSheet, View, Pressable } from "react-native";
 
-const ContactRow = ({ name, navigation }) => {
+const ContactRow = ({ name, id, navigation }) => {
   return (
     <Pressable
       style={styles.container}
-      // onPress={() => navigation.navigate("Details")}
-      // onPress={() => console.log(props.navigation.getId)}
+      onPress={() => navigation.navigate("Details", {
+        id,
+        name
+      })}
     >
       <Text style={styles.text}> {name} </Text>
-      {/* <Text style={styles.text}> {key} </Text> */}
       {/* <Text style={styles.text}> {phone} </Text> */}
     </Pressable>
   );

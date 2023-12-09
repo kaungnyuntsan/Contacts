@@ -131,7 +131,7 @@ const getRandomContact = () => ({
   phone: getRandomPhone(),
 });
 
-const addKey = (contact, id) => ({ id, ...contact });
+const addId = (contact, id) => ({ id, ...contact });
 
 // console.log(getRandomInt())
 // console.log(getRandomName());
@@ -154,7 +154,7 @@ export const objSortByName = (a, b) => {
 
 // const randomContacts = () =>
 export default Array.from({ length: numContacts }, getRandomContact).map(
-  addKey
+  addId
 );
 
 // export { randomContacts };

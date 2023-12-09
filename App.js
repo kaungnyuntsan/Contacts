@@ -37,10 +37,14 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen({ route }) {
+  const {id} = route.params
+
+  // const contactData = contacts.find(contact => contact.id === id)
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
+      <Text>Details Screen {id}</Text>
     </View>
   );
 }
@@ -57,7 +61,9 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Details" component={DetailsScreen} 
+            options={({ route }) => ({ title : route.params.name})}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
