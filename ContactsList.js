@@ -3,7 +3,7 @@ import { ContactRow } from "./ContactRow";
 
 const ContactsList = ({ contacts, navigation }) => {
   const renderItem = ({ item }) => {
-    // console.log(item.key)
+    // console.log(item.key);
     return <ContactRow {...item} navigation={navigation} />;
   };
 

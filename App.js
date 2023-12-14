@@ -28,6 +28,10 @@ function HomeScreen({ navigation }) {
       {contactsView ? (
         <>
           <Button title="Add Contact" onPress={() => setContactsView(false)} />
+          {/* <Button
+            title="console Contact"
+            onPress={() => console.log(contacts)}
+          /> */}
           <ContactsList contacts={contacts} navigation={navigation} />
         </>
       ) : (
@@ -45,7 +49,7 @@ function DetailsScreen({ route }) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {/* <Text>Details Screen {id}</Text> */}
+      {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
       <Text style={{ fontSize: 20 }}> {contactData.name}</Text>
       <Text style={{ fontSize: 20 }}>{contactData.phone}</Text>
     </View>

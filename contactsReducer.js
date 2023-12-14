@@ -4,7 +4,7 @@ const contactsReducer = (contacts, action) => {
       return [
         ...contacts,
         {
-          key: contacts.length + 1,
+          id: contacts.length + 1,
           name: action.name,
           phone: action.phone,
         },
