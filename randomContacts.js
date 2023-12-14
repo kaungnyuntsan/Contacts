@@ -153,9 +153,7 @@ export const objSortByName = (a, b) => {
 };
 
 // const randomContacts = () =>
-export default Array.from({ length: numContacts }, getRandomContact).map(
-  addId
-);
+export default Array.from({ length: numContacts }, getRandomContact).map(addId);
 
 // export { randomContacts };
 // console.log( randomContacts());

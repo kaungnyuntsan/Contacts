@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer, useContext } from "react";
 import { StyleSheet, Button, View, Text } from "react-native";
 import randomContacts from "./randomContacts";
 import { ContactsList } from "./ContactsList";
@@ -6,20 +6,20 @@ import { AddContactForm } from "./AddContactForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { contactsReducer } from "./contactsReducer";
+import { ContactsContext, ContactsDispatchContext } from "./ContactsContext";
 
 function HomeScreen({ navigation }) {
   const [contactsView, setContactsView] = useState(true);
-  const [contacts, setContacts] = useState(randomContacts);
+  const contacts = useContext(ContactsContext);
+  const dispatch = useContext(ContactsDispatchContext);
 
   const addContact = (name, phone) => {
-    setContacts([
-      ...contacts,
-      {
-        key: contacts.length + 1,
-        name,
-        phone,
-      },
-    ]);
+    dispatch({
+      type: "added",
+      name,
+      phone,
+    });
     setContactsView(true);
   };
 
@@ -27,7 +27,7 @@ function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {contactsView ? (
         <>
-          {/* <Button title="Add Contact" onPress={() => setContactsView(false)} /> */}
+          <Button title="Add Contact" onPress={() => setContactsView(false)} />
           <ContactsList contacts={contacts} navigation={navigation} />
         </>
       ) : (
@@ -38,14 +38,15 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ route }) {
+  const contacts = useContext(ContactsContext);
   const { id } = route.params;
 
-  const contactData = randomContacts.find((contact) => contact.id === id);
+  const contactData = contacts.find((contact) => contact.id === id);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       {/* <Text>Details Screen {id}</Text> */}
-      <Text style={{ fontSize: 20 }}>{contactData.name}</Text>
+      <Text style={{ fontSize: 20 }}> {contactData.name}</Text>
       <Text style={{ fontSize: 20 }}>{contactData.phone}</Text>
     </View>
   );
@@ -54,21 +55,27 @@ function DetailsScreen({ route }) {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [contacts, dispatch] = useReducer(contactsReducer, randomContacts);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Details"
-            component={DetailsScreen}
-            options={({ route }) => ({ title: route.params.name })}
-          />
-        </Stack.Navigator>
+        <ContactsContext.Provider value={contacts}>
+          <ContactsDispatchContext.Provider value={dispatch}>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Details"
+                component={DetailsScreen}
+                options={({ route }) => ({ title: route.params.name })}
+              />
+            </Stack.Navigator>
+          </ContactsDispatchContext.Provider>
+        </ContactsContext.Provider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
