@@ -1,8 +1,9 @@
 import { useState, useReducer, useContext } from "react";
-import { StyleSheet, Button, View, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Button, View, Text } from "react-native";
 import randomContacts from "./randomContacts";
 import { ContactsList } from "./ContactsList";
 import { AddContactForm } from "./AddContactForm";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { contactsReducer } from "./contactsReducer";
@@ -26,7 +27,7 @@ function HomeScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "right", "left"]}>
       {contactsView ? (
         <>
           <Button title="Add Contact" onPress={() => setContactsView(false)} />
@@ -82,38 +83,40 @@ export default function App() {
   const [contacts, dispatch] = useReducer(contactsReducer, randomContacts);
 
   return (
-    <NavigationContainer>
-      <ContactsContext.Provider value={contacts}>
-        <ContactsDispatchContext.Provider value={dispatch}>
-          <Tab.Navigator
-            // initialRouteName="Settings"
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                const icons = {
-                  Contacts: focused ? "people" : "people-outline",
-                  Settings: focused ? "settings" : "settings-outline",
-                };
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <ContactsContext.Provider value={contacts}>
+          <ContactsDispatchContext.Provider value={dispatch}>
+            <Tab.Navigator
+              // initialRouteName="Settings"
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  const icons = {
+                    Contacts: focused ? "people" : "people-outline",
+                    Settings: focused ? "settings" : "settings-outline",
+                  };
 
-                return (
-                  <Ionicons
-                    name={icons[route.name]}
-                    size={size}
-                    color={color}
-                  />
-                );
-              },
-            })}
-          >
-            <Tab.Screen
-              name="Contacts"
-              component={ContactsScreen}
-              options={{ headerShown: false }}
-            />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-          </Tab.Navigator>
-        </ContactsDispatchContext.Provider>
-      </ContactsContext.Provider>
-    </NavigationContainer>
+                  return (
+                    <Ionicons
+                      name={icons[route.name]}
+                      size={size}
+                      color={color}
+                    />
+                  );
+                },
+              })}
+            >
+              <Tab.Screen
+                name="Contacts"
+                component={ContactsScreen}
+                options={{ headerShown: false }}
+              />
+              <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator>
+          </ContactsDispatchContext.Provider>
+        </ContactsContext.Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
