@@ -88,12 +88,14 @@ export default function App() {
         <ContactsContext.Provider value={contacts}>
           <ContactsDispatchContext.Provider value={dispatch}>
             <Tab.Navigator
-              // initialRouteName="Settings"
+              // initialRouteName="Cloud"
               screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                   const icons = {
                     Contacts: focused ? "people" : "people-outline",
-                    Settings: focused ? "settings" : "settings-outline",
+                    Cloud: focused
+                      ? "cloud-download"
+                      : "cloud-download-outline",
                   };
 
                   return (
@@ -111,7 +113,7 @@ export default function App() {
                 component={ContactsScreen}
                 options={{ headerShown: false }}
               />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
+              <Tab.Screen name="Cloud" component={SettingsScreen} />
             </Tab.Navigator>
           </ContactsDispatchContext.Provider>
         </ContactsContext.Provider>
