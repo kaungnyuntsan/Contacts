@@ -1,9 +1,34 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { getContactsFromApi } from "./api";
 
 const SettingsScreen = () => {
+  const [cloudContacts, setCloudContacts] = useState([]);
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  const fetchApi = async () => {
+    try {
+      const data = await getContactsFromApi();
+      setCloudContacts(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> Settings coming soon ...</Text>
+      <Button
+        title="console cloudContacts"
+        onPress={() => console.log(cloudContacts)}
+      />
+      {cloudContacts.map((contact) => (
+        <View key={contact.id.value}>
+          <Text style={styles.text}> {contact.email}</Text>
+        </View>
+      ))}
     </View>
   );
 };
