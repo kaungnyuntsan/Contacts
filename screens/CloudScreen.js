@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { getContactsFromApi } from "./api";
+import { getContactsFromApi } from "../api";
 
-const SettingsScreen = () => {
+export const CloudScreen = () => {
   const [cloudContacts, setCloudContacts] = useState([]);
 
   useEffect(() => {
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { SettingsScreen };
+
