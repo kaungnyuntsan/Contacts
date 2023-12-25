@@ -1,4 +1,4 @@
-const contactsReducer = (contacts, action) => {
+export const contactsReducer = (contacts, action) => {
   switch (action.type) {
     case "added": {
       return [
@@ -15,5 +15,3 @@ const contactsReducer = (contacts, action) => {
     }
   }
 };
-
-export { contactsReducer };
