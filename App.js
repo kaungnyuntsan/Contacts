@@ -1,4 +1,4 @@
-import {  useReducer } from "react";
+import { useReducer } from "react";
 import randomContacts from "./randomContacts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
@@ -8,6 +8,8 @@ import { CloudScreen } from "./screens/CloudScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ContactsScreen } from "./screens/ContactsScreen";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,39 +21,39 @@ export default function App() {
       <NavigationContainer>
         <ContactsContext.Provider value={contacts}>
           <ContactsDispatchContext.Provider value={dispatch}>
-            <Tab.Navigator
-              // initialRouteName="Cloud"
-              screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                  const icons = {
-                    Contacts: focused ? "people" : "people-outline",
-                    Cloud: focused
-                      ? "cloud-download"
-                      : "cloud-download-outline",
-                  };
+            <Provider store={store}>
+              <Tab.Navigator
+                // initialRouteName="Cloud"
+                screenOptions={({ route }) => ({
+                  tabBarIcon: ({ focused, color, size }) => {
+                    const icons = {
+                      Contacts: focused ? "people" : "people-outline",
+                      Cloud: focused
+                        ? "cloud-download"
+                        : "cloud-download-outline",
+                    };
 
-                  return (
-                    <Ionicons
-                      name={icons[route.name]}
-                      size={size}
-                      color={color}
-                    />
-                  );
-                },
-              })}
-            >
-              <Tab.Screen
-                name="Contacts"
-                component={ContactsScreen}
-                options={{ headerShown: false }}
-              />
-              <Tab.Screen name="Cloud" component={CloudScreen} />
-            </Tab.Navigator>
+                    return (
+                      <Ionicons
+                        name={icons[route.name]}
+                        size={size}
+                        color={color}
+                      />
+                    );
+                  },
+                })}
+              >
+                <Tab.Screen
+                  name="Contacts"
+                  component={ContactsScreen}
+                  options={{ headerShown: false }}
+                />
+                <Tab.Screen name="Cloud" component={CloudScreen} />
+              </Tab.Navigator>
+            </Provider>
           </ContactsDispatchContext.Provider>
         </ContactsContext.Provider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-

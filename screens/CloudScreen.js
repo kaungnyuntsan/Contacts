@@ -1,34 +1,57 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { getContactsFromApi } from "../api";
+// import { getContactsFromApi } from "../api";
+import { useGetContactsQuery } from "../apiSlice";
 
 export const CloudScreen = () => {
-  const [cloudContacts, setCloudContacts] = useState([]);
+  // const [cloudContacts, setCloudContacts] = useState([]);
+  const {
+    data: cloudContacts,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetContactsQuery();
 
-  useEffect(() => {
-    fetchApi();
-  }, []);
+  let content;
+  if (isLoading) {
+    content = <Text> Loading ... </Text>;
+  } else if (isSuccess) {
+    content = cloudContacts.results.map((contact) => (
+      <Text key={contact.id.value} style={{ fontSize: 20 }}>
+        {" "}
+        {contact.email}{" "}
+      </Text>
+    ));
+  } else if (isError) {
+    content = <Text> {error.toString()}</Text>;
+  }
 
-  const fetchApi = async () => {
-    try {
-      const data = await getContactsFromApi();
-      setCloudContacts(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // useEffect(() => {
+  //   fetchApi();
+  // }, []);
+
+  // const fetchApi = async () => {
+  //   try {
+  //     const data = await getContactsFromApi();
+  //     setCloudContacts(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
       <Button
         title="console cloudContacts"
-        onPress={() => console.log(cloudContacts)}
+        onPress={() => console.log(cloudContacts.results)}
       />
-      {cloudContacts.map((contact) => (
+      {content}
+      {/* {cloudContacts.map((contact) => (
         <View key={contact.id.value}>
           <Text style={styles.text}> {contact.email}</Text>
         </View>
-      ))}
+      ))} */}
     </View>
   );
 };
@@ -43,5 +66,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-
