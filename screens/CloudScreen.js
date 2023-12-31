@@ -6,19 +6,21 @@ import { useGetContactsQuery } from "../apiSlice";
 export const CloudScreen = () => {
   // const [cloudContacts, setCloudContacts] = useState([]);
   const {
-    data: cloudContacts,
+    data = [],
     isLoading,
     isSuccess,
     isError,
     error,
   } = useGetContactsQuery();
 
+  const cloudContacts = data.results;
+
   let content;
   if (isLoading) {
     content = <Text> Loading ... </Text>;
   } else if (isSuccess) {
-    content = cloudContacts.results.map((contact) => (
-      <Text key={contact.id.value} style={{ fontSize: 20 }}>
+    content = cloudContacts.map((contact) => (
+      <Text key={contact.phone} style={{ fontSize: 20 }}>
         {" "}
         {contact.email}{" "}
       </Text>
@@ -44,7 +46,7 @@ export const CloudScreen = () => {
     <View style={styles.container}>
       <Button
         title="console cloudContacts"
-        onPress={() => console.log(cloudContacts.results)}
+        onPress={() => console.log(cloudContacts)}
       />
       {content}
       {/* {cloudContacts.map((contact) => (
