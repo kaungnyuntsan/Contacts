@@ -69,7 +69,7 @@ function CloudDetailsScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
-      <Text style={{ fontSize: 20 }}> Working... </Text>
+      <Text style={{ fontSize: 20 }}> coming soon. </Text>
       {/* <Text style={{ fontSize: 20 }}>{contactData.phone}</Text> */}
     </View>
   );
