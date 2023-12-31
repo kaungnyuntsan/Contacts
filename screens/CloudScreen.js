@@ -1,10 +1,28 @@
 import { useEffect, useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { View, Text, StyleSheet, Button } from "react-native";
 // import { getContactsFromApi } from "../api";
 import { useGetContactsQuery } from "../apiSlice";
+import { ContactsList } from "../ContactsList";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const Stack = createNativeStackNavigator();
 
 export const CloudScreen = () => {
-  // const [cloudContacts, setCloudContacts] = useState([]);
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={CloudHomeScreen}
+        // options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Details" component={CloudDetailsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const CloudHomeScreen = ({ navigation }) => {
   const {
     data = [],
     isLoading,
@@ -13,50 +31,49 @@ export const CloudScreen = () => {
     error,
   } = useGetContactsQuery();
 
-  const cloudContacts = data.results;
+  const transformContact = (contact) => {
+    return {
+      name: `${contact.name.first} ${contact.name.last}`,
+      id: contact.phone,
+    };
+  };
 
   let content;
   if (isLoading) {
-    content = <Text> Loading ... </Text>;
+    content = <Text style={{ fontSize: 20 }}> Loading ... </Text>;
   } else if (isSuccess) {
-    content = cloudContacts.map((contact) => (
-      <Text key={contact.phone} style={{ fontSize: 20 }}>
-        {" "}
-        {contact.email}{" "}
-      </Text>
-    ));
+    const cloudContacts = data.results;
+    const contacts = cloudContacts.map(transformContact);
+    return <ContactsList contacts={contacts} navigation={navigation} />;
   } else if (isError) {
     content = <Text> {error.toString()}</Text>;
   }
 
-  // useEffect(() => {
-  //   fetchApi();
-  // }, []);
-
-  // const fetchApi = async () => {
-  //   try {
-  //     const data = await getContactsFromApi();
-  //     setCloudContacts(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   return (
-    <View style={styles.container}>
-      <Button
+    <SafeAreaView style={styles.container}>
+      {/* <Button
         title="console cloudContacts"
         onPress={() => console.log(cloudContacts)}
-      />
+      /> */}
       {content}
-      {/* {cloudContacts.map((contact) => (
-        <View key={contact.id.value}>
-          <Text style={styles.text}> {contact.email}</Text>
-        </View>
-      ))} */}
-    </View>
+    </SafeAreaView>
   );
 };
+
+function CloudDetailsScreen() {
+  // const contacts = useContext(ContactsContext);
+  // const { id } = route.params;
+
+  // const contactData = contacts.find((contact) => contact.id === id);
+
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
+      <Text style={{ fontSize: 20 }}> Working... </Text>
+      {/* <Text style={{ fontSize: 20 }}>{contactData.phone}</Text> */}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

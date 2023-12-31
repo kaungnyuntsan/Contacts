@@ -48,7 +48,11 @@ export default function App() {
                   component={ContactsScreen}
                   options={{ headerShown: false }}
                 />
-                <Tab.Screen name="Cloud" component={CloudScreen} />
+                <Tab.Screen
+                  name="Cloud"
+                  component={CloudScreen}
+                  options={{ headerShown: false }}
+                />
               </Tab.Navigator>
             </Provider>
           </ContactsDispatchContext.Provider>
