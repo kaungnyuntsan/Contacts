@@ -17,7 +17,11 @@ export const CloudScreen = () => {
         component={CloudHomeScreen}
         // options={{ headerShown: false }}
       />
-      <Stack.Screen name="Details" component={CloudDetailsScreen} />
+      <Stack.Screen
+        name="Details"
+        component={CloudDetailsScreen}
+        options={({ route }) => ({ title: route.params.name })}
+      />
     </Stack.Navigator>
   );
 };
