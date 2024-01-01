@@ -1,32 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Image } from "react-native";
 // import { getContactsFromApi } from "../api";
 import { useGetContactsQuery } from "../apiSlice";
 import { ContactsList } from "../ContactsList";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CloudContactsContext } from "../ContactsContext";
 
 const Stack = createNativeStackNavigator();
 
 export const CloudScreen = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={CloudHomeScreen}
-        // options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Details"
-        component={CloudDetailsScreen}
-        options={({ route }) => ({ title: route.params.name })}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const CloudHomeScreen = ({ navigation }) => {
   const {
     data = [],
     isLoading,
@@ -37,6 +21,7 @@ const CloudHomeScreen = ({ navigation }) => {
 
   const transformContact = (contact) => {
     return {
+      ...contact,
       name: `${contact.name.first} ${contact.name.last}`,
       id: contact.phone,
     };
@@ -44,37 +29,61 @@ const CloudHomeScreen = ({ navigation }) => {
 
   let content;
   if (isLoading) {
-    content = <Text style={{ fontSize: 20 }}> Loading ... </Text>;
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={{ fontSize: 20 }}> Loading ... </Text>
+      </SafeAreaView>
+    );
   } else if (isSuccess) {
     const cloudContacts = data.results;
     const contacts = cloudContacts.map(transformContact);
-    return <ContactsList contacts={contacts} navigation={navigation} />;
+    // console.log(contacts);
+    return (
+      <CloudContactsContext.Provider value={contacts}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={CloudHomeScreen}
+            // options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Details"
+            component={CloudDetailsScreen}
+            options={({ route }) => ({ title: route.params.name })}
+          />
+        </Stack.Navigator>
+      </CloudContactsContext.Provider>
+    );
   } else if (isError) {
-    content = <Text> {error.toString()}</Text>;
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text> {error.toString()}</Text>;
+      </SafeAreaView>
+    );
   }
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* <Button
-        title="console cloudContacts"
-        onPress={() => console.log(cloudContacts)}
-      /> */}
-      {content}
-    </SafeAreaView>
-  );
 };
 
-function CloudDetailsScreen() {
-  // const contacts = useContext(ContactsContext);
-  // const { id } = route.params;
+const CloudHomeScreen = ({ navigation }) => {
+  const contacts = useContext(CloudContactsContext);
+  // console.log(contacts);
+  return <ContactsList contacts={contacts} navigation={navigation} />;
+};
 
-  // const contactData = contacts.find((contact) => contact.id === id);
+function CloudDetailsScreen({ route }) {
+  // const contacts = useContext(ContactsContext);
+  const { id } = route.params;
+  const contacts = useContext(CloudContactsContext);
+
+  const contact = contacts.find((contact) => contact.id === id);
+  // console.log(contact);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
-      <Text style={{ fontSize: 20 }}> coming soon. </Text>
-      {/* <Text style={{ fontSize: 20 }}>{contactData.phone}</Text> */}
+      <Image style={styles.photo} source={{ uri: contact.picture.large }} />
+      <Text style={{ fontSize: 20 }}> {contact.name} </Text>
+      <Text style={{ fontSize: 20 }}>{contact.phone}</Text>
+      <Text style={{ fontSize: 20 }}>{contact.email}</Text>
     </View>
   );
 }
@@ -87,5 +96,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+  },
+  photo: {
+    width: 128,
+    height: 128,
+    margin: 10,
+    borderRadius: 100,
   },
 });
