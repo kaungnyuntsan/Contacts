@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { TextInput, View, Button } from "react-native";
+import { TextInput, View, Button, StyleSheet } from "react-native";
 
-const AddContactForm = ({ addContact }) => {
+export const AddContactForm = ({ addContact }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={{ borderWidth: 1, margin: 10, padding: 10 }}
         placeholder="name"
@@ -31,4 +31,11 @@ const AddContactForm = ({ addContact }) => {
   );
 };
 
-export { AddContactForm };
+const styles = StyleSheet.create({
+  container: {
+    flex : 1,
+    justifyContent: "center",
+  }
+})
+
+

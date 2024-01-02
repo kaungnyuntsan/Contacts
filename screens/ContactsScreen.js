@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState, useContext } from "react";
 import { ContactsContext, ContactsDispatchContext } from "../ContactsContext";
 import {  SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Button, View, Text } from "react-native";
+import { StyleSheet, Button, View, Text, Modal } from "react-native";
 import { ContactsList } from "../ContactsList";
 import { AddContactForm } from "../AddContactForm";
 
@@ -26,7 +26,9 @@ export const ContactsScreen = () => {
 };
 
 function HomeScreen({ navigation }) {
-    const [contactsView, setContactsView] = useState(true);
+    // const [contactsView, setContactsView] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+
     const contacts = useContext(ContactsContext);
     const dispatch = useContext(ContactsDispatchContext);
   
@@ -36,23 +38,37 @@ function HomeScreen({ navigation }) {
         name,
         phone,
       });
-      setContactsView(true);
+      setModalVisible(!modalVisible);
+
     };
   
     return (
       <SafeAreaView style={styles.container} edges={["top", "right", "left"]}>
-        {contactsView ? (
-          <>
-            <Button title="Add Contact" onPress={() => setContactsView(false)} />
-            {/* <Button
-              title="console Contact"
-              onPress={() => console.log(contacts)}
-            /> */}
+       
+          
+            <Button title="Add Contact" onPress={() => {
+              setModalVisible(true)
+            }}
+               />
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={modalVisible}
+              onRequestClose={() => {
+                // console.log('Modal has been closed.');
+                setModalVisible(!modalVisible);
+              }}
+              presentationStyle="formSheet"
+
+              >
+               <AddContactForm addContact={addContact} />
+                
+            
+            </Modal>
+           
             <ContactsList contacts={contacts} navigation={navigation} />
-          </>
-        ) : (
-          <AddContactForm addContact={addContact} />
-        )}
+          
+       
       </SafeAreaView>
     );
 }
@@ -65,7 +81,7 @@ function DetailsScreen({ route }) {
     const contactData = contacts.find((contact) => contact.id === id);
   
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center",    backgroundColor: "white", }}>
         {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
         <Text style={{ fontSize: 20 }}> {contactData.name}</Text>
         <Text style={{ fontSize: 20 }}>{contactData.phone}</Text>
@@ -76,7 +92,7 @@ function DetailsScreen({ route }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      backgroundColor: "white",
       // alignItems: 'center',
       // justifyContent: 'center',
     },

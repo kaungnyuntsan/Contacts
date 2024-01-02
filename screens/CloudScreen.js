@@ -85,14 +85,14 @@ function CloudDetailsScreen({ route }) {
     <View style={styles.container}>
       {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
       <Image style={styles.photo} source={{ uri: contact.picture.large }} />
-      <Text style={{ fontSize: 20 }}> {contact.name} </Text>
+      <Text style={[styles.text, styles.contactdetail]}> {contact.name} </Text>
 
-      <Text style={{ fontSize: 20 }}> {contact.phone}</Text>
-      <Text style={{ fontSize: 20 }}> {contact.cell}</Text>
-      <Text style={{ fontSize: 20 }}> {contact.email}</Text>
-      <Text style={{ fontSize: 20 }}> </Text>
+      <Text style={[styles.text, styles.contactdetail]}> {contact.phone}</Text>
+      <Text style={[styles.text, styles.contactdetail]}> {contact.cell}</Text>
+      <Text style={[styles.text, styles.contactdetail]}> {contact.email}</Text>
+      {/* <Text style={[styles.text, styles.contactdetail]}> </Text> */}
 
-      <Text style={{ fontSize: 20 }}>
+      <Text style={[styles.text, styles.contactdetail]}>
         {" "}
         {contact.location.street.number} {contact.location.street.name},{" "}
         {contact.location.city}, {contact.location.state},{" "}
@@ -118,4 +118,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 100,
   },
+  contactdetail : {
+    padding : 3,
+    margin : 7,
+  }
 });
