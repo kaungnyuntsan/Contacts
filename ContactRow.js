@@ -20,6 +20,7 @@ const ContactRow = ({ name, id, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
+    // backgroundColor: "white",
     // borderWidth : 1,
   },
   text: {

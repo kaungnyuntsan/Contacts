@@ -5,8 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://randomuser.me/api/" }),
   endpoints: (builder) => ({
     getContacts: builder.query({
-      query: () =>
-        "?results=30&exc=login,id,gender,registered,cell&nat=us&seed=abc",
+      query: () => "?results=30&exc=login,id,gender,registered&nat=us",
     }),
     // getDetailContacts: builder.query({
     //   query: () => "?results=5&exc=login,id,gender,registered,cell&seed=abc",

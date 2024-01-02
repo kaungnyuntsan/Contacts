@@ -66,7 +66,11 @@ export const CloudScreen = () => {
 const CloudHomeScreen = ({ navigation }) => {
   const contacts = useContext(CloudContactsContext);
   // console.log(contacts);
-  return <ContactsList contacts={contacts} navigation={navigation} />;
+  return (
+    <View style={{ backgroundColor: "white" }}>
+      <ContactsList contacts={contacts} navigation={navigation} />
+    </View>
+  );
 };
 
 function CloudDetailsScreen({ route }) {
@@ -78,12 +82,22 @@ function CloudDetailsScreen({ route }) {
   // console.log(contact);
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={styles.container}>
       {/* <Text style={{ fontSize: 20 }}>contact id: {id}</Text> */}
       <Image style={styles.photo} source={{ uri: contact.picture.large }} />
       <Text style={{ fontSize: 20 }}> {contact.name} </Text>
-      <Text style={{ fontSize: 20 }}>{contact.phone}</Text>
-      <Text style={{ fontSize: 20 }}>{contact.email}</Text>
+
+      <Text style={{ fontSize: 20 }}> {contact.phone}</Text>
+      <Text style={{ fontSize: 20 }}> {contact.cell}</Text>
+      <Text style={{ fontSize: 20 }}> {contact.email}</Text>
+      <Text style={{ fontSize: 20 }}> </Text>
+
+      <Text style={{ fontSize: 20 }}>
+        {" "}
+        {contact.location.street.number} {contact.location.street.name},{" "}
+        {contact.location.city}, {contact.location.state},{" "}
+        {contact.location.postcode}, {contact.location.country}{" "}
+      </Text>
     </View>
   );
 }
@@ -93,6 +107,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
   },
   text: {
     fontSize: 20,
