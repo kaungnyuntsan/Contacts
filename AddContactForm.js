@@ -12,6 +12,7 @@ export const AddContactForm = ({ addContact }) => {
         placeholder="name"
         value={name}
         onChangeText={setName}
+        autoFocus
       />
       <TextInput
         style={{ borderWidth: 1, margin: 10, padding: 10 }}
@@ -33,9 +34,7 @@ export const AddContactForm = ({ addContact }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex : 1,
+    flex: 1,
     justifyContent: "center",
-  }
-})
-
-
+  },
+});
