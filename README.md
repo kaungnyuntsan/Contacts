@@ -6,4 +6,4 @@
 
 ## Android Demo
 
-![Demo](./assets/contacts-android-gif.gif)
+![Demo](./assets/contacts-android-gif2.gif)
