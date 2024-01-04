@@ -8,7 +8,7 @@ export const AddContactForm = ({ addContact }) => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={{ borderWidth: 1, margin: 10, padding: 10 }}
+        style={{ borderWidth: 1, margin: 10, padding: 10, marginTop: 40 }}
         placeholder="name"
         value={name}
         onChangeText={setName}
@@ -35,6 +35,6 @@ export const AddContactForm = ({ addContact }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "start",
   },
 });

@@ -7,9 +7,6 @@ export const apiSlice = createApi({
     getContacts: builder.query({
       query: () => "?results=30&exc=login,id,gender,registered&nat=us",
     }),
-    // getDetailContacts: builder.query({
-    //   query: () => "?results=5&exc=login,id,gender,registered,cell&seed=abc",
-    // }),
   }),
 });
 

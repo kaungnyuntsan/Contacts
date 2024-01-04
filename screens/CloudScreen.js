@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { View, Text, StyleSheet, Button, Image } from "react-native";
-// import { getContactsFromApi } from "../api";
-import { useGetContactsQuery } from "../apiSlice";
-import { ContactsList } from "../ContactsList";
+import { useGetContactsQuery } from "../redux/apiSlice";
+
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CloudContactsContext } from "../ContactsContext";
+import { CloudContactsContext } from "../reducer_and_context/ContactsContext";
+import { ContactsList } from "../features/ContactsList";
 
 const Stack = createNativeStackNavigator();
 
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 100,
   },
-  contactdetail : {
-    padding : 3,
-    margin : 7,
-  }
+  contactdetail: {
+    padding: 2,
+    margin: 2,
+  },
 });

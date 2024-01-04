@@ -1,14 +1,17 @@
 import { useReducer } from "react";
-import randomContacts from "./randomContacts";
+import randomContacts from "./data/randomContacts";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { contactsReducer } from "./contactsReducer";
-import { ContactsContext, ContactsDispatchContext } from "./ContactsContext";
+import { contactsReducer } from "./reducer_and_context/contactsReducer";
+import {
+  ContactsContext,
+  ContactsDispatchContext,
+} from "./reducer_and_context/ContactsContext";
 import { CloudScreen } from "./screens/CloudScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ContactsScreen } from "./screens/ContactsScreen";
-import store from "./store";
+import store from "./redux/store";
 import { Provider } from "react-redux";
 
 const Tab = createBottomTabNavigator();
